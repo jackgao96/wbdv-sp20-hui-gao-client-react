@@ -34,6 +34,7 @@ class CourseTableRow extends React.Component {
                                 }
                             })}
                             value={this.state.course.title}/>
+
                     }
                 </td>
                 <td className="wbdv-row wbdv-owner ">me</td>
