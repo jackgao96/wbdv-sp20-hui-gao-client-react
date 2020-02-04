@@ -105,28 +105,8 @@ class CourseManagerComponent extends React.Component{
 
             <div>
                 {
-                    <div style={{marginTop: '60px'}} id="box">
-                        <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-                            <button className="navbar-toggler-icon wbdv-field wbdv-hamburger"
-                                    id="hamburger"
-                                    type="button"
-                                    data-toggle="collapse"
-                                    data-target="#navbarNavDropdown">
-                            </button>
-                            <a className="navbar-brand wbdv-label wbdv-course-manager" >Course Manager</a>
-                            <input
-                                onChange={this.updateForm}
-                                value={this.state.newCourseTitle}/>
-                            <span className="fa-stack wbdv-button-right wbdv-button wbdv-add-course" type="button"
-                                  onClick={this.addCourse}
-                                  style={{color: 'red', left: '50px'}}>
-                        <i className="fas fa-circle fa-stack-2x"></i>
-                        <i className="fas fa-plus fa-stack-1x fa-inverse"></i>
-				    </span>
-                        </nav>
                     this.state.editingCourse
-                    && <CourseEditor hideCourseEditor={this.hideCourseEditor}/>
-                    </div>
+                            && <CourseEditor hideCourseEditor={this.hideCourseEditor}/>
                 }
                 {
                     !this.state.editingCourse &&

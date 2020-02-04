@@ -2,11 +2,13 @@ import React from "react";
 import ModuleList from "./ModuleList";
 import LessonList from "./LessonList"
 import TopicList from "./TopicList";
-import CourseTableRow from "../CourseTableRow";
+
 
 //import './CourseEditor.css'
 
 const CourseEditor = ({hideCourseEditor} ) =>
+
+
     <div className="row">
 
         <div id="" className="col-md-4 ">
@@ -114,5 +116,6 @@ const CourseEditor = ({hideCourseEditor} ) =>
         {/*    </div>*/}
         {/*</div>*/}
     </div>
+
 
 export default CourseEditor
