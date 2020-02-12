@@ -1,121 +1,106 @@
 import React from "react";
 import ModuleList from "./ModuleList";
-import LessonList from "./LessonList"
-import TopicList from "./TopicList";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import moduleReducer from "../../reducers/moduleReducers";
+import LessonTabs from "./LessonTabs";
+import lessonReducer from "../../reducers/lessonReducer";
+import TopicPills from "./TopicPills"
+import topicReducer from "../../reducers/topicReducer";
 
 
-//import './CourseEditor.css'
+const rootReducer = combineReducers({
+    modules: moduleReducer,
+    lessons: lessonReducer,
+    topics: topicReducer
+})
+const store = createStore(rootReducer)
 
-const CourseEditor = ({hideCourseEditor} ) =>
+function findCourseTitle(courses, courseId) {
+    for (var i = 0; i < courses.length; i++) {
+        if (courses[i]._id === courseId)
+            return courses[i].title
+    }
+}
 
+const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, lessonId}) =>
+    <Provider store={store}>
+        <div className="row">
 
-    <div className="row">
+            <div id="" className="col-md-4 ">
 
-        <div id="" className="col-md-4 ">
-            <input type="button" className="wbdv-course-editor wbdv-close" onClick={hideCourseEditor} value="close"/>
-            <label className="wbdv-course-title" style={{color: 'black'}}><h1>CS5610-WebDev </h1></label>
-                    <ModuleList modules={[
-                        {_id: "123", title: "CSS"},
-                        {_id: "234", title: "HTML"},
-                        {_id: "345", title: "React JS"},
-                    ]}/>
-
-        </div>
-        <div id="lesson" className="col-md-8">
-            <div id="" className="row">
-                <LessonList lessons={[
-                    {_id: "123", title: "Build"},
-                    {_id: "234", title: "Pages"},
-                    {_id: "345", title: "Theme"},
-                    {_id: "456", title: "Store"},
-                    {_id: "567", title: "Apps"},
-                    {_id: "678", title: "Setting"},
-                ]}/>
+                <button className="wbdv-course-editor wbdv-close" onClick={() => history.push("/")}>Close</button>
+                <label className="wbdv-course-title" style={{color: 'black'}}>
+                    <h1>{findCourseTitle(courses, courseId)} </h1></label>
+                <ModuleList
+                    courses={courses}
+                    courseId={courseId}/>
             </div>
-            <div id="topic" className="row-cols-1">
-                <TopicList topics={[
-                    {_id: "123", title: "topic 1"},
-                    {_id: "234", title: "topic 2"},
-                    {_id: "345", title: "topic 3"},
-                    {_id: "456", title: "topic 4"},
-                ]}/>
+            <div id="lesson" className="col-md-8">
+                <div id="" className="row">
+                    <LessonTabs
+                        moduleId={moduleId}
+                        courses={courses}
+                        courseId={courseId}/>
+
+                </div>
+                <div id="topic" className="row-cols-1">
+                    <TopicPills
+                        moduleId={moduleId}
+                        courses={courses}
+                        courseId={courseId}
+                        lessonId={lessonId}
+                    />
+                </div>
+                <div id="saveline" className="row-cols-1">
+
+                    <input type="button" name="" id="save" value="Save"/>
+                    <a id="preview" style={{paddingRight: '80px'}}>preview</a>
 
 
-            </div>
-            <div id="saveline" className="row-cols-1">
+                </div>
 
-                <input type="button" name="" id="save" value="Save"/>
-                <a id="preview" style={{paddingRight: '80px'}}>preview</a>
+                <div id="box">
+                    <div id="headingweight" className="row" style={{height: '30px'}}>
+                        <h3 className="float-left" style={{paddingLeft: '20px'}}>Heading Weight</h3>
+                        <button>up</button>
+                        <button> down</button>
+                        <div className="col-sm-3">
+                            <select className="form-control  wbdv-field wbdv-role">
 
+                                <option value="Heading">heading</option>
 
-            </div>
+                            </select>
+                        </div>
+                        <button>x</button>
+                    </div>
+                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
 
-            <div id="box">
-                <div id="headingweight" className="row" style={{height: '30px'}}>
-                    <h3 className="float-left" style={{paddingLeft: '20px'}}>Heading Weight</h3>
-                    <button >up</button>
-                    <button> down</button>
-                    <div className="col-sm-3">
+                        <input className="form-control" id="headtext" placeholder="Heading Text"/>
+                    </div>
+                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
                         <select className="form-control  wbdv-field wbdv-role">
 
-                            <option value="Heading" >heading</option>
+                            <option value="Heading">heading 1</option>
 
                         </select>
                     </div>
-                    <button>x</button>
-                </div>
-                <div className="col-sm-10" style={{paddingTop: '40px'}}>
+                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
+                        <input className="form-control"
+                               id="weightname" placeholder="Weight Name"/>
+                    </div>
+                    <div>
+                        {/*<h4 className="float-left">preview</h4><br><br>*/}
+                        {/*<h2 className="float-left">Heading Text</h2>*/}
+                    </div>
 
-                    <input className="form-control" id="headtext" placeholder="Heading Text"/>
-                </div>
-                <div className="col-sm-10" style={{paddingTop: '40px'}}>
-                    <select className="form-control  wbdv-field wbdv-role">
 
-                        <option value="Heading" >heading 1</option>
-
-                    </select>
                 </div>
-                <div className="col-sm-10" style={{paddingTop: '40px'}}>
-                    <input className="form-control"
-                           id="weightname" placeholder="Weight Name"/>
-                </div>
-                <div>
-                    {/*<h4 className="float-left">preview</h4><br><br>*/}
-                    {/*<h2 className="float-left">Heading Text</h2>*/}
-                </div>
-
 
             </div>
 
+
         </div>
 
-        {/*<div className="row">*/}
-        {/*    <div className="col-4">*/}
-        {/*        <h4>Module List</h4>*/}
-        {/*        <ModuleList modules={[*/}
-        {/*            {_id: "123", title: "CSS"},*/}
-        {/*            {_id: "234", title: "HTML"},*/}
-        {/*            {_id: "345", title: "React JS"},*/}
-        {/*        ]}/>*/}
-        {/*    </div>*/}
-        {/*    <div className="col-4">*/}
-        {/*        <h4>Lesson Tabs</h4>*/}
-        {/*        <ul>*/}
-        {/*            <li>Lesson 1</li>*/}
-        {/*            <li>Lesson 2</li>*/}
-        {/*            <li>Lesson 3</li>*/}
-        {/*        </ul>*/}
-        {/*    </div>*/}
-        {/*    <div className="col-4">*/}
-        {/*        <h4>Task Tabs</h4>*/}
-        {/*        <ul>*/}
-        {/*            <li>Task 1</li>*/}
-        {/*            <li>Task 2</li>*/}
-        {/*            <li>Task 3</li>*/}
-        {/*        </ul>*/}
-        {/*    </div>*/}
-        {/*</div>*/}
-    </div>
-
-
+    </Provider>
 export default CourseEditor

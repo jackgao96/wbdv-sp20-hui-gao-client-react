@@ -1,25 +1,34 @@
+
 import React from "react";
 
-import CourseGridCard from "../components/CourseGridCard";
+import CourseTableRow from "./CourseTableRow";
 
 
 
-const CourseGridComponent = ({courses, deleteCourse, showCourseEditor}) =>
+const CourseTableComponent = ({courses, deleteCourse, showCourseEditor}) =>
     <div>
-        <h2>Course Grid Component</h2>
-        <div >
+        <table className="table">
+            <tbody className="wbdv-tbody">
+
             {
                 courses.map(function(course, index) {
-                    return <CourseGridCard
+                    return <CourseTableRow
                         showCourseEditor={showCourseEditor}
                         deleteCourse={deleteCourse}
                         key={course._id}
                         course={course}/>
                 })
             }
-        </div>
+
+            </tbody>
+        </table>
+
     </div>
 
 
 
-export default CourseGridComponent
+
+
+
+
+export default CourseTableComponent

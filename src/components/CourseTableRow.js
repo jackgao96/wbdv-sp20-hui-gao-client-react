@@ -1,5 +1,6 @@
 import React from "react";
 import {updateCourse} from "../services/CourseService";
+import {Link} from "react-router-dom";
 
 class CourseTableRow extends React.Component {
     constructor(props) {
@@ -20,9 +21,9 @@ class CourseTableRow extends React.Component {
                     <i className="fas fa-file-alt wbdv-row wbdv-icon"></i>
 
                     {   !this.state.editing &&
-                        <a href="#" onClick={this.props.showCourseEditor}   >
-                            {this.state.course.title}
-                        </a>
+                    <Link to={`/course-editor/${this.props.course._id}`} onClick={this.props.showCourseEditor}   >
+                        {this.state.course.title}
+                    </Link>
                     }
                     {
                         this.state.editing &&
