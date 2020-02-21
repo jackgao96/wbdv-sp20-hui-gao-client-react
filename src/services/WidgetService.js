@@ -1,9 +1,9 @@
 export const findWidgetsForTopic = (topicd) =>
-    fetch(`http://localhost:8080/api/topics/${topicd}/widgets/`)
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/topics/${topicd}/widgets/`)
         .then(response => response.json())
 
 export const updateWidget = (wid, widget) =>
-    fetch(`http://localhost:8080/api/widgets/${wid}`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
@@ -12,16 +12,16 @@ export const updateWidget = (wid, widget) =>
     }).then(response => response.json())
 
 export const findAllWidgets = () =>
-    fetch("http://localhost:8080/api/widgets")
+    fetch("https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets")
         .then(response => response.json())
 
 export const deleteWidget = (widgetId) =>
-    fetch(`http://localhost:8080/api/widgets/${widgetId}`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets/${widgetId}`, {
         method: "DELETE"
     }).then(response => response.json())
 
 export const createWidget = (widget) =>
-    fetch("http://localhost:8080/api/widgets", {
+    fetch("https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets", {
         method: "POST",
         body: JSON.stringify(widget),
         headers: {
