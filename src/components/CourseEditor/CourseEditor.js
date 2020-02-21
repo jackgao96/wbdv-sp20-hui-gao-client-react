@@ -7,12 +7,14 @@ import LessonTabs from "./LessonTabs";
 import lessonReducer from "../../reducers/lessonReducer";
 import TopicPills from "./TopicPills"
 import topicReducer from "../../reducers/topicReducer";
-
+import WidgetList from "./WidgetList";
+import widgetReducer from "../../reducers/widgetReducer";
 
 const rootReducer = combineReducers({
     modules: moduleReducer,
     lessons: lessonReducer,
-    topics: topicReducer
+    topics: topicReducer,
+    widgets: widgetReducer
 })
 const store = createStore(rootReducer)
 
@@ -23,7 +25,7 @@ function findCourseTitle(courses, courseId) {
     }
 }
 
-const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, lessonId}) =>
+const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, lessonId, topicId}) =>
     <Provider store={store}>
         <div className="row">
 
@@ -54,46 +56,18 @@ const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, l
                 </div>
                 <div id="saveline" className="row-cols-1">
 
-                    <input type="button" name="" id="save" value="Save"/>
-                    <a id="preview" style={{paddingRight: '80px'}}>preview</a>
+
 
 
                 </div>
 
                 <div id="box">
-                    <div id="headingweight" className="row" style={{height: '30px'}}>
-                        <h3 className="float-left" style={{paddingLeft: '20px'}}>Heading Weight</h3>
-                        <button>up</button>
-                        <button> down</button>
-                        <div className="col-sm-3">
-                            <select className="form-control  wbdv-field wbdv-role">
-
-                                <option value="Heading">heading</option>
-
-                            </select>
-                        </div>
-                        <button>x</button>
-                    </div>
-                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
-
-                        <input className="form-control" id="headtext" placeholder="Heading Text"/>
-                    </div>
-                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
-                        <select className="form-control  wbdv-field wbdv-role">
-
-                            <option value="Heading">heading 1</option>
-
-                        </select>
-                    </div>
-                    <div className="col-sm-10" style={{paddingTop: '40px'}}>
-                        <input className="form-control"
-                               id="weightname" placeholder="Weight Name"/>
-                    </div>
-                    <div>
-                        {/*<h4 className="float-left">preview</h4><br><br>*/}
-                        {/*<h2 className="float-left">Heading Text</h2>*/}
-                    </div>
-
+                    <WidgetList
+                        moduleId={moduleId}
+                        courses={courses}
+                        courseId={courseId}
+                        lessonId={lessonId}
+                        topicId={topicId}/>
 
                 </div>
 

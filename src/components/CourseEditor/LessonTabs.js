@@ -36,7 +36,7 @@ class LessonTabs extends React.Component {
                             })}
                             key={lesson._id}>
 
-                            <a className={`nav-link
+                            <p className={`nav-link
                                             ${(this.state.editingLessonId === lesson._id
                                 || this.state.selectedLessonId === lesson._id) ? 'active' : ''}`}>
                                 {this.state.editingLessonId !== lesson._id &&
@@ -80,7 +80,7 @@ class LessonTabs extends React.Component {
                                 }}>
                                     Edit
                                 </button>
-                            </a>
+                            </p>
                         </li>)
                 }
                 <li className="nav-item">

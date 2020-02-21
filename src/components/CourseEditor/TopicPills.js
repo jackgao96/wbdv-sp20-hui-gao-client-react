@@ -2,6 +2,7 @@ import React from "react";
 import {LESSONS_TOPICS_API_URL,TOPICS_API_URL} from "../../common/constants";
 import {connect} from "react-redux";
 import TopicService, {updateTopic} from "../../services/TopicService"
+import {Link} from "react-router-dom";
 
 
 class TopicPills extends React.Component {
@@ -32,11 +33,17 @@ class TopicPills extends React.Component {
                             })}
                             key={topic._id}>
 
-                            <a className={`nav-link
+                            <p className={`nav-link
                                             ${(this.state.editingTopicId === topic._id
                                 || this.state.selectedTopicId === topic._id) ? 'active' : ''}`}>
                                 {this.state.editingTopicId !== topic._id &&
-                                <span>{topic.title}</span>}
+
+                                <Link to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`}>
+                                    {topic.title}
+                                </Link>
+                                //<span>{topic.title}</span>
+                                }
+
                                 {this.state.editingTopicId === topic._id &&
                                 <input
                                     onChange={(e) => {
@@ -73,7 +80,7 @@ class TopicPills extends React.Component {
                                 }}>
                                     Edit
                                 </button>
-                            </a>
+                            </p>
                         </li>)
                 }
                 <li className="nav-item">
@@ -107,7 +114,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
     addTopic: (lessonId) =>
         fetch(LESSONS_TOPICS_API_URL(lessonId), {
             method: 'POST',
-            body: JSON.stringify({title: 'New Lesson'}),
+            body: JSON.stringify({title: 'New Topic'}),
             headers: {
                 'content-type': 'application/json'
             }
