@@ -10,6 +10,7 @@ import {
     findWidgetsForTopic
 } from "../../services/WidgetService";
 import Widget from "./widgets/Widget";
+import {deleteLesson} from "../../services/LessonService";
 
 class WidgetList extends React.Component {
     state = {
@@ -20,22 +21,23 @@ class WidgetList extends React.Component {
     save = (wid, widget) => {
         this.props.updateWidget(wid, widget)
         this.setState(
-            {widget:{}}
+            {widget: {}}
         )
     }
+
     componentDidMount() {
         this.props.findWidgetsForTopic(this.props.topicId);
-        // this.props.findAllWidgets();
+        //this.props.findAllWidgets();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.topicId !== this.props.topicId) {
+        if (prevProps.topicId !== this.props.topicId) {
             this.props.findWidgetsForTopic(this.props.topicId);
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 {
                     this.props.widgets && this.props.widgets.map(widget =>
@@ -49,10 +51,10 @@ class WidgetList extends React.Component {
                                 deleteWidget={this.props.deleteWidget}
                                 widget={widget}/>
                             <span>
-                                {   widget !== this.state.widget &&
-                                    <button onClick={() => this.setState({
-                                        widget: widget
-                                    })}>
+                                {widget !== this.state.widget &&
+                                <button onClick={() => this.setState({
+                                    widget: widget
+                                })}>
                                     Edit
                                 </button>}
                             </span>
@@ -77,8 +79,8 @@ const stateToPropertyMapper = (state) => ({
 })
 
 const dispatchToPropertyMapper = (dispatcher) => ({
-    findWidgetsForTopic: (topicId) =>
-        findWidgetsForTopic(topicId)
+    findWidgetsForTopic: async (topicId) =>
+        await findWidgetsForTopic(topicId)
             .then(widgets => dispatcher({
                 type: "WIDGET_FOR_TOPIC",
                 widgets: widgets
@@ -96,16 +98,29 @@ const dispatchToPropertyMapper = (dispatcher) => ({
                 widgetId: widgetId
             })),
     createWidget: (topicId) =>
-        createWidget({
+        createWidget(topicId, {
             title: "New Widget",
             type: "HEADING",
-            topicId: topicId,
-            id: (new Date()).getTime() + ""
+            size: 2
         })
             .then(actualWidget => dispatcher({
                 type: "ADD_WIDGET",
                 widget: actualWidget
             })),
+    // createWidget: (topicId) =>
+    //     fetch(`http://localhost:8080/api/topics/${topicId}/widgets`, {
+    //         method : "POST",
+    //         body: JSON.stringify({
+    //             title: "New Widget"
+    //         }),
+    //         headers: {
+    //             'content-type': "application/json"
+    //         }
+    //     })
+    //         .then(actualWidget => dispatcher({
+    //             type: "ADD_WIDGET",
+    //             widget: actualWidget
+    //         })),
     findAllWidgets: () =>
         findAllWidgets()
             .then(actualWidgets => dispatcher({

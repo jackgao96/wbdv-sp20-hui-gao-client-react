@@ -3,6 +3,10 @@ const initialState ={
 }
 const topicReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "SET_TOPICS":
+            return {
+                topics: action.topics
+            }
         case 'CREATE_TOPIC':
             return {
                 topics: [
@@ -13,13 +17,13 @@ const topicReducer = (state = initialState, action) => {
         case 'DELETE_TOPIC':
             return {
                 topics: state.topics.filter(
-                    topic => topic._id !== action.topicId)
+                    topic => topic.id !== action.topicId)
             }
 
         case 'UPDATE_TOPIC':
             return {
                 topics: state.topics.map(topic =>
-                    topic._id === action.topicId ? action.topic : topic
+                    topic.id === action.topicId ? action.topic : topic
                 )
             }
 

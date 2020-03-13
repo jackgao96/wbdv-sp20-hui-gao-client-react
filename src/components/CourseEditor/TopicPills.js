@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 
 class TopicPills extends React.Component {
     componentDidMount() {
+        //this.props.findAllTopics()
         this.props.findTopicsForLesson(this.props.lessonId)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -19,7 +20,7 @@ class TopicPills extends React.Component {
         editingTopicId: '',
         topic: {
             title: '',
-            _id: ''
+            id: ''
         }
     }
     render() {
@@ -29,32 +30,25 @@ class TopicPills extends React.Component {
                     this.props.topics && this.props.topics.map(topic =>
                         <li className={`nav-item`}
                             onClick={() => this.setState({
-                                selectedTopicId: topic._id
+                                selectedTopicId: topic.id
                             })}
-                            key={topic._id}>
+                            key={topic.id}>
 
                             <p className={`nav-link
-                                            ${(this.state.editingTopicId === topic._id
-                                || this.state.selectedTopicId === topic._id) ? 'active' : ''}`}>
-                                {this.state.editingTopicId !== topic._id &&
+                                            ${(this.state.editingTopicId === topic.id
+                                || this.state.selectedTopicId === topic.id) ? 'active' : ''}`}>
+                                {this.state.editingTopicId !== topic.id &&
 
-                                <Link to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic._id}`}>
-                                    {topic.title}
+                                <Link to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic.id}`}>
+                                    {topic.title}{topic.id}
                                 </Link>
                                 //<span>{topic.title}</span>
                                 }
 
-                                {this.state.editingTopicId === topic._id &&
+                                {this.state.editingTopicId === topic.id &&
                                 <input
                                     onChange={(e) => {
                                         topic.title = e.target.value
-                                        //const newTitle = e.target.value
-                                        // this.setState(prevState => ({
-                                        //     lesson: {
-                                        //         ...prevState.lesson,
-                                        //         title: newTitle
-                                        //     }
-                                        // }))
                                     }}
                                     defaultValue={this.state.topic.title}/>}
                                 <button onClick={() => {
@@ -69,13 +63,13 @@ class TopicPills extends React.Component {
                                     Save
                                 </button>
                                 <button onClick={
-                                    () => this.props.deleteTopic(topic._id)}>
+                                    () => this.props.deleteTopic(topic.id)}>
                                     X
                                 </button>
                                 <button onClick={() => {
                                     this.setState({
                                         topic: topic,
-                                        editingTopicId: topic._id
+                                        editingTopicId: topic.id
                                     })
                                 }}>
                                     Edit
@@ -96,7 +90,14 @@ const stateToPropertyMapper = (state) => ({
     topics: state.topics.topics
 })
 const dispatcherToPropertyMapper = (dispatcher) => ({
-    findTopicsForLesson: lessonId =>
+    findAllTopics: () =>
+        fetch(TOPICS_API_URL)
+            .then(response => response.json())
+            .then(topics => dispatcher({
+                type: "SET_TOPICS",
+                topics: topics
+            })),
+    findTopicsForLesson: (lessonId) =>
         fetch(LESSONS_TOPICS_API_URL(lessonId))
             .then(response => response.json())
             .then(topics => dispatcher({
@@ -108,7 +109,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
         dispatcher({
             type: 'UPDATE_PILL',
             topic: actualTopic,
-            topicId: actualTopic._id
+            topicId: actualTopic.id
         })
     },
     addTopic: (lessonId) =>

@@ -42,6 +42,8 @@ class ParagraphWidget extends React.Component {
                                 value={this.state.widget.type}>
                             <option value="HEADING">Heading</option>
                             <option value="PARAGRAPH">Paragraph</option>
+                            <option value="LIST">List</option>
+                            <option value="IMAGE">Image</option>
                         </select>
                         <input  onChange={(e) => {
                             const newText = e.target.value

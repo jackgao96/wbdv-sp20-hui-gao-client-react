@@ -1,6 +1,7 @@
 import React from "react";
+import HeadingWidget from "./HeadingWidget";
 
-class HeadingWidget extends React.Component {
+class ListWidget extends React.Component {
     state = {
         editing: this.props.editing,
         widget: this.props.widget
@@ -17,16 +18,18 @@ class HeadingWidget extends React.Component {
     render() {
         return (
             <div>
+                <h1>List Widget</h1>
                 {
                     !this.state.editing &&
                     <div>
 
-                        {this.props.widget.size === 1 && <h1>{this.props.widget.title}</h1>}
-                        {this.props.widget.size === 2 && <h2>{this.props.widget.title}</h2>}
-                        {this.props.widget.size === 3 && <h3>{this.state.widget.title}</h3>}
-                        {this.props.widget.size === 4 && <h4>{this.props.widget.title}</h4>}
-                        {this.props.widget.size === 5 && <h5>{this.props.widget.title}</h5>}
-                        {this.props.widget.size === 6 && <h6>{this.props.widget.title}</h6>}
+
+                        {this.props.widget.size === 1 &&
+                        <ul><li>{this.state.widget.text}</li></ul>}
+                        {this.props.widget.size === 2 &&
+                        <ol>
+                            <li> {this.state.widget.text} </li>
+                        </ol>}
 
 
                     </div>
@@ -34,6 +37,23 @@ class HeadingWidget extends React.Component {
                 {
                     this.state.editing &&
                     <div>
+                        <textarea id="w3mission" rows="4" cols="50" placeholder="Enter one list item per line"
+                                  onChange={(e) => {
+                            const newText = e.target.value
+                            this.setState(prevState => {
+                                this.state.widget.text = newText;
+
+                                return {
+                                    widget: {
+                                        ...prevState.widget, text: newText
+                                    }
+                                }})
+                            //this.props.updateWidget(this.state.widget.id, this.state.widget)
+                        }}
+                                  value={this.state.widget.text} id="w3mission" rows="4" cols="50"> </textarea>
+                        <h4>Preview</h4>
+                        {this.state.widget.size == 2 && <ol><li>{this.state.widget.text}</li></ol>}
+                        {this.state.widget.size == 1 && <ul><li>{this.state.widget.text}</li></ul>}
                         <select onChange={(e) => {
                             const newType = e.target.value
                             this.setState(prevState => {
@@ -44,7 +64,7 @@ class HeadingWidget extends React.Component {
                                     }
                                 }
                             })
-                            //this.props.updateWidget(this.state.widget.id, this.state.widget)
+
                         }}
                                 value={this.state.widget.type}>
                             <option value="HEADING">Heading</option>
@@ -52,17 +72,9 @@ class HeadingWidget extends React.Component {
                             <option value="LIST">List</option>
                             <option value="IMAGE">Image</option>
                         </select>
-                        <input
-                            onChange={(e) => {
-                                const newTitle = e.target.value;
-                                this.setState(prevState => {
-
-                                    prevState.widget.title = newTitle;
-                                    return prevState
-                                })
-                            }}
-                            value={this.state.widget.title}/>
-                        <span className="float-right">
+                    </div>
+                }
+                <span>
                                 <select
                                     onChange={(e) => {
                                         const newSize = parseInt(e.target.value);
@@ -72,21 +84,15 @@ class HeadingWidget extends React.Component {
                                         })
                                     }}
                                     value={this.state.widget.size}>
-                                    <option value={1}>Heading 1</option>
-                                    <option value={2}>Heading 2</option>
-                                    <option value={3}>Heading 3</option>
-                                    <option value={4}>Heading 4</option>
-                                    <option value={5}>Heading 5</option>
-                                    <option value={6}>Heading 6</option>
+                                    <option value={1}>Unordered List</option>
+                                    <option value={2}>Ordered List</option>
                                 </select>
 
 
                                 </span>
-                    </div>
-                }
             </div>
         )
     }
 }
 
-export default HeadingWidget
+export default ListWidget

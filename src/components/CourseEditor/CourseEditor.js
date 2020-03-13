@@ -25,12 +25,10 @@ function findCourseTitle(courses, courseId) {
     }
 }
 
-const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, lessonId, topicId}) =>
+const CourseEditor = ({history, courseId, moduleId, courses, lessonId, topicId}) =>
     <Provider store={store}>
         <div className="row">
-
             <div id="" className="col-md-4 ">
-
                 <button className="wbdv-course-editor wbdv-close" onClick={() => history.push("/")}>Close</button>
                 <label className="wbdv-course-title" style={{color: 'black'}}>
                     <h1>{findCourseTitle(courses, courseId)} </h1></label>
@@ -44,7 +42,6 @@ const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, l
                         moduleId={moduleId}
                         courses={courses}
                         courseId={courseId}/>
-
                 </div>
                 <div id="topic" className="row-cols-1">
                     <TopicPills
@@ -54,27 +51,15 @@ const CourseEditor = ({hideCourseEditor, history, courseId, moduleId, courses, l
                         lessonId={lessonId}
                     />
                 </div>
-                <div id="saveline" className="row-cols-1">
-
-
-
-
-                </div>
-
-                <div id="box">
+                <div id="widget">
                     <WidgetList
                         moduleId={moduleId}
                         courses={courses}
                         courseId={courseId}
                         lessonId={lessonId}
                         topicId={topicId}/>
-
                 </div>
-
             </div>
-
-
         </div>
-
     </Provider>
 export default CourseEditor
