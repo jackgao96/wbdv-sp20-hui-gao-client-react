@@ -1,11 +1,11 @@
-import {TOPICS_API_URL, LESSONS_TOPICS_API_URL} from "../common/constants";
+import {TOPICS_API_URL} from "../common/constants";
 
 export const findTopicsForLesson = (lessonId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/lessons/${lessonId}/topics`)
+    fetch(`https://wbdv-generic-server.herokuapp.com/api/lessons/${lessonId}/topics`)
         .then(response => response.json())
 
 export const createTopic = (lessonId, topic) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/lessons/${lessonId}/topics`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/lessons/${lessonId}/topics`, {
         method: "POST",
         body: JSON.stringify(topic),
         headers: {

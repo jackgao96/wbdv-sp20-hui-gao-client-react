@@ -40,7 +40,7 @@ class WidgetList extends React.Component {
         return (
             <div>
                 {
-                    this.props.widgets && this.props.widgets.map(widget =>
+                    this.props.topicId && this.props.widgets && this.props.widgets.map(widget =>
 
                         <div key={widget.id}>
 

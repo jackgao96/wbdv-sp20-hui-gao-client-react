@@ -1,5 +1,5 @@
 import React from "react";
-import HeadingWidget from "./HeadingWidget";
+
 
 class ListWidget extends React.Component {
     state = {
@@ -24,9 +24,9 @@ class ListWidget extends React.Component {
                     <div>
 
 
-                        {this.props.widget.size === 1 &&
-                        <ul><li>{this.state.widget.text}</li></ul>}
                         {this.props.widget.size === 2 &&
+                        <ul><li>{this.state.widget.text}</li></ul>}
+                        {this.props.widget.size === 1 &&
                         <ol>
                             <li> {this.state.widget.text} </li>
                         </ol>}
@@ -52,8 +52,8 @@ class ListWidget extends React.Component {
                         }}
                                   value={this.state.widget.text} id="w3mission" rows="4" cols="50"> </textarea>
                         <h4>Preview</h4>
-                        {this.state.widget.size == 2 && <ol><li>{this.state.widget.text}</li></ol>}
-                        {this.state.widget.size == 1 && <ul><li>{this.state.widget.text}</li></ul>}
+                        {this.state.widget.size === 1 && <ol><li>{this.state.widget.text}</li></ol>}
+                        {this.state.widget.size === 2 && <ul><li>{this.state.widget.text}</li></ul>}
                         <select onChange={(e) => {
                             const newType = e.target.value
                             this.setState(prevState => {
@@ -84,8 +84,8 @@ class ListWidget extends React.Component {
                                         })
                                     }}
                                     value={this.state.widget.size}>
-                                    <option value={1}>Unordered List</option>
-                                    <option value={2}>Ordered List</option>
+                                    <option value={2}>Unordered List</option>
+                                    <option value={1}>Ordered List</option>
                                 </select>
 
 

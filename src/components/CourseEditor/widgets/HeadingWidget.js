@@ -22,7 +22,7 @@ class HeadingWidget extends React.Component {
                     <div>
 
                         {this.props.widget.size === 1 && <h1>{this.props.widget.title}</h1>}
-                        {this.props.widget.size === 2 && <h2>{this.props.widget.title}</h2>}
+                        {this.props.widget.size === 2 && <h2>{this.props.widget.title}{this.state.widget._id}</h2>}
                         {this.props.widget.size === 3 && <h3>{this.state.widget.title}</h3>}
                         {this.props.widget.size === 4 && <h4>{this.props.widget.title}</h4>}
                         {this.props.widget.size === 5 && <h5>{this.props.widget.title}</h5>}

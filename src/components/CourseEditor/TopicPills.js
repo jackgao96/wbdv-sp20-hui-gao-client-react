@@ -27,7 +27,7 @@ class TopicPills extends React.Component {
         return (
             <ul className="nav nav-tabs">
                 {
-                    this.props.topics && this.props.topics.map(topic =>
+                    this.props.lessonId && this.props.topics && this.props.topics.map(topic =>
                         <li className={`nav-item`}
                             onClick={() => this.setState({
                                 selectedTopicId: topic.id
@@ -42,7 +42,7 @@ class TopicPills extends React.Component {
                                 <Link to={`/course-editor/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${topic.id}`}>
                                     {topic.title}{topic.id}
                                 </Link>
-                                //<span>{topic.title}</span>
+
                                 }
 
                                 {this.state.editingTopicId === topic.id &&
@@ -98,7 +98,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
                 topics: topics
             })),
     findTopicsForLesson: (lessonId) =>
-        fetch(LESSONS_TOPICS_API_URL(lessonId))
+        fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/lessons/${lessonId}/topics`)
             .then(response => response.json())
             .then(topics => dispatcher({
                 type: 'FIND_TOPICS_FOR_LESSON',
@@ -113,7 +113,7 @@ const dispatcherToPropertyMapper = (dispatcher) => ({
         })
     },
     addTopic: (lessonId) =>
-        fetch(LESSONS_TOPICS_API_URL(lessonId), {
+        fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/lessons/${lessonId}/topics`, {
             method: 'POST',
             body: JSON.stringify({title: 'New Topic'}),
             headers: {
