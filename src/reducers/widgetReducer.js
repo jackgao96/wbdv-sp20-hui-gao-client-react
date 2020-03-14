@@ -17,7 +17,7 @@ const widgetReducer = (state = {
             }
         case 'DELETE_WIDGET':
             return {
-                widgets: state.widgets.filter(widget => widget._id !== action.widgetId)
+                widgets: state.widgets.filter(widget => widget.id !== action.widgetId)
             }
         case "FIND_ALL_WIDGETS":
             return {

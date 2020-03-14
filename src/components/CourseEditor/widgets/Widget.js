@@ -35,7 +35,7 @@ export default class Widget extends React.Component {
                     this.props.editing &&
                     <span>
                     <button onClick={() => {
-                        this.props.deleteWidget(this.props.widget._id)
+                        this.props.deleteWidget(this.props.widget.id)
                     }}>
                         Delete
                     </button>
