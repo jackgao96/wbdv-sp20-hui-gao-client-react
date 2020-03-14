@@ -8,7 +8,7 @@ export const findWidgetsForTopic = (topicId) =>
 
 
 export const updateWidget = (wid, widget) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/widgets/${wid}`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets/${wid}`, {
         method: "PUT",
         body: JSON.stringify(widget),
         headers: {
@@ -17,11 +17,11 @@ export const updateWidget = (wid, widget) =>
     }).then(response => response.json())
 
 export const findAllWidgets = () =>
-    fetch("https://wbdv-generic-server.herokuapp.com/api/huigao1/widgets")
+    fetch("https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets")
         .then(response => response.json())
 
 export const deleteWidget = (widgetId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/widgets/${widgetId}`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/widgets/${widgetId}`, {
         method: "DELETE"
     }).then(response => response.json())
 
