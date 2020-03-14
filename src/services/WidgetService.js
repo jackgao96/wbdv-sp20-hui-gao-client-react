@@ -1,7 +1,7 @@
 import {deleteLesson} from "./LessonService";
 
-export const findWidgetsForTopic = async (topicId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/topics/${topicId}/widgets`)
+export const findWidgetsForTopic = (topicId) =>
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/topics/${topicId}/widgets`)
         .then(response => response.json())
 
 //https://localhost:8080/api/topics/${topicd}/widgets/
@@ -26,7 +26,7 @@ export const deleteWidget = (widgetId) =>
     }).then(response => response.json())
 
 export const createWidget = (tid, widget) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/topics/${tid}/widgets`, {
+    fetch(`https://wbdv-sp20-huigao-server-java.herokuapp.com/api/topics/${tid}/widgets`, {
         method: "POST",
         body: JSON.stringify(widget),
         headers: {

@@ -1,7 +1,7 @@
 import {TOPICS_API_URL} from "../common/constants";
 
 export const findTopicsForLesson = (lessonId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/lessons/${lessonId}/topics`)
+    fetch(`https://wbdv-generic-server.herokuapp.com/api/huigao1/lessons/${lessonId}/topics`)
         .then(response => response.json())
 
 export const createTopic = (lessonId, topic) =>
